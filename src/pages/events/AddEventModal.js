@@ -36,12 +36,72 @@ const AddEventModal = Form.create({ name: 'add_event' })(
             <Form.Item label="이름">
               {getFieldDecorator('name', {
                 rules: [requiredRule],
-              })(<Input />)}
+              })(<Input autoComplete="new-password" />)}
             </Form.Item>
             <Form.Item label="카테고리">
               {getFieldDecorator('category', {
                 rules: [requiredRule],
-              })(<Input />)}
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="조건">
+              {getFieldDecorator('requirements', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="시작일">
+              {getFieldDecorator('begin_date', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="종료일">
+              {getFieldDecorator('end_date', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="출처">
+              {getFieldDecorator('reference', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="이미지">
+              {getFieldDecorator('image', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="링크">
+              {getFieldDecorator('link', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="위치">
+              {getFieldDecorator('location', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="혜택">
+              {getFieldDecorator('benefit', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="대상">
+              {getFieldDecorator('target', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="전화번호">
+              {getFieldDecorator('tel', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="비고">
+              {getFieldDecorator('note', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="상세">
+              {getFieldDecorator('description', {
+                rules: [requiredRule],
+              })(<Input autoComplete="new-password" />)}
             </Form.Item>
           </Form>
         </Modal>
