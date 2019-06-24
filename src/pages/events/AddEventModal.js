@@ -94,7 +94,7 @@ const AddEventModal = Form.create({ name: 'add_event' })(
             </Form.Item>
             <Form.Item label="상세">
               {getFieldDecorator('description')(
-                <Input autoComplete="new-password" />
+                <Input.TextArea autoComplete="new-password" />
               )}
             </Form.Item>
           </Form>
