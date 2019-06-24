@@ -2,10 +2,12 @@
 
 import React from 'react';
 import axios from 'axios';
-import { Button, Icon } from 'antd';
+import { Button, Icon, message } from 'antd';
 
 import EventTable from './EventTable';
 import AddEventModal from './AddEventModal';
+
+const apiServer = 'https://code.hanjun.kim:8000';
 
 class EventsPage extends React.Component {
   state = {
@@ -23,7 +25,21 @@ class EventsPage extends React.Component {
       if (err) {
         return;
       }
-      // TODO: post to api server
+
+      const data = Object.entries(values).reduce(
+        (obj, [key, value]) => ({ ...obj, [key]: value || '' }),
+        {}
+      );
+
+      axios
+        .post(`${apiServer}/events`, data)
+        .then(resp => resp.data)
+        .then(data =>
+          message.success(
+            `'${data.name}' 혜택을 추가했습니다. (ID: ${data.id})`
+          )
+        );
+
       form.resetFields();
       this.setState({ addEventModalVisible: false });
     });
