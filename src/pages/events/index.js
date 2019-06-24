@@ -2,7 +2,7 @@
 
 import React from 'react';
 import axios from 'axios';
-import { Button, Icon, message } from 'antd';
+import { Button, Icon, Modal, message } from 'antd';
 
 import EventTable from './EventTable';
 import AddEventModal from './AddEventModal';
@@ -13,6 +13,27 @@ class EventsPage extends React.Component {
   state = {
     events: [],
     addEventModalVisible: false,
+  };
+
+  fetchEvents = () => {
+    axios
+      .get(`${apiServer}/events?_sort=id`)
+      .then(resp =>
+        this.setState({
+          events: resp.data.map(item => Object.assign(item, { key: item.id })),
+        })
+      )
+      .catch(this.handleError);
+  };
+
+  handleError = err => {
+    if (err.response) {
+      message.error(`에러: ${err.response.status}`);
+    } else if (err.request) {
+      message.error(`에러: ${err.request}`);
+    } else {
+      message.error(`에러: ${err.message}`);
+    }
   };
 
   showAddEventModal = () => {
@@ -41,8 +62,9 @@ class EventsPage extends React.Component {
 
           form.resetFields();
           this.setState({ addEventModalVisible: false });
+          this.fetchEvents();
         })
-        .catch(err => message.error(err));
+        .catch(this.handleError);
     });
   };
 
@@ -56,14 +78,28 @@ class EventsPage extends React.Component {
     this.addEventFormRef = formRef;
   };
 
-  async componentDidMount() {
-    const { data } = await axios.get(
-      'https://code.hanjun.kim:8000/events?_sort=id'
-    );
+  handleEdit = record => {};
 
-    this.setState({
-      events: data.map(item => Object.assign(item, { key: item.id })),
+  handleDelete = record => {
+    Modal.confirm({
+      title: `'${record.name}' 혜택을 삭제하시겠습니까?`,
+      okText: '예',
+      okType: 'danger',
+      cancelText: '취소',
+      onOk: () => {
+        return axios
+          .delete(`${apiServer}/events/${record.id}`)
+          .then(resp => {
+            message.success(`'${record.name}' 혜택을 삭제했습니다.`);
+            this.fetchEvents();
+          })
+          .catch(this.handleError);
+      },
     });
+  };
+
+  componentDidMount() {
+    this.fetchEvents();
   }
 
   render() {
@@ -85,7 +121,11 @@ class EventsPage extends React.Component {
           <Icon type="plus" />
           혜택 추가
         </Button>
-        <EventTable events={events} />
+        <EventTable
+          events={events}
+          onEdit={this.handleEdit}
+          onDelete={this.handleDelete}
+        />
       </React.Fragment>
     );
   }

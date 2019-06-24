@@ -4,6 +4,7 @@ import React from 'react';
 import { Divider, Table } from 'antd';
 
 const EventTable = props => {
+  const { onEdit, onDelete } = props;
   const columns = [
     {
       title: 'ID',
@@ -25,9 +26,9 @@ const EventTable = props => {
       title: '작업',
       render: (_, record) => (
         <span>
-          <a>수정</a>
+          <a onClick={() => onEdit(record)}>수정</a>
           <Divider type="vertical" />
-          <a>삭제</a>
+          <a onClick={() => onDelete(record)}>삭제</a>
         </span>
       ),
     },
