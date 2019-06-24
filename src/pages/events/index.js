@@ -34,14 +34,15 @@ class EventsPage extends React.Component {
       axios
         .post(`${apiServer}/events`, data)
         .then(resp => resp.data)
-        .then(data =>
+        .then(data => {
           message.success(
             `'${data.name}' 혜택을 추가했습니다. (ID: ${data.id})`
-          )
-        );
+          );
 
-      form.resetFields();
-      this.setState({ addEventModalVisible: false });
+          form.resetFields();
+          this.setState({ addEventModalVisible: false });
+        })
+        .catch(err => message.error(err));
     });
   };
 
