@@ -30,6 +30,8 @@ class EventsPage extends React.Component {
   };
 
   handleAddEventModalCancel = () => {
+    const { form } = this.addEventFormRef.props;
+    form.resetFields();
     this.setState({ addEventModalVisible: false });
   };
 
