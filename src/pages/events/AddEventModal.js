@@ -43,41 +43,6 @@ const AddEventModal = Form.create({ name: 'add_event' })(
                 rules: [requiredRule],
               })(<Input autoComplete="new-password" />)}
             </Form.Item>
-            <Form.Item label="조건">
-              {getFieldDecorator('requirements', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
-            </Form.Item>
-            <Form.Item label="시작일">
-              {getFieldDecorator('begin_date', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
-            </Form.Item>
-            <Form.Item label="종료일">
-              {getFieldDecorator('end_date', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
-            </Form.Item>
-            <Form.Item label="출처">
-              {getFieldDecorator('reference', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
-            </Form.Item>
-            <Form.Item label="이미지">
-              {getFieldDecorator('image', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
-            </Form.Item>
-            <Form.Item label="링크">
-              {getFieldDecorator('link', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
-            </Form.Item>
-            <Form.Item label="위치">
-              {getFieldDecorator('location', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
-            </Form.Item>
             <Form.Item label="혜택">
               {getFieldDecorator('benefit', {
                 rules: [requiredRule],
@@ -88,20 +53,49 @@ const AddEventModal = Form.create({ name: 'add_event' })(
                 rules: [requiredRule],
               })(<Input autoComplete="new-password" />)}
             </Form.Item>
+            <Form.Item label="조건">
+              {getFieldDecorator('requirements')(
+                <Input autoComplete="new-password" />
+              )}
+            </Form.Item>
+            <Form.Item label="시작일">
+              {getFieldDecorator('begin_date')(
+                <Input autoComplete="new-password" />
+              )}
+            </Form.Item>
+            <Form.Item label="종료일">
+              {getFieldDecorator('end_date')(
+                <Input autoComplete="new-password" />
+              )}
+            </Form.Item>
+            <Form.Item label="출처">
+              {getFieldDecorator('reference')(
+                <Input autoComplete="new-password" />
+              )}
+            </Form.Item>
+            <Form.Item label="이미지">
+              {getFieldDecorator('image')(
+                <Input autoComplete="new-password" />
+              )}
+            </Form.Item>
+            <Form.Item label="링크">
+              {getFieldDecorator('link')(<Input autoComplete="new-password" />)}
+            </Form.Item>
+            <Form.Item label="위치">
+              {getFieldDecorator('location')(
+                <Input autoComplete="new-password" />
+              )}
+            </Form.Item>
             <Form.Item label="전화번호">
-              {getFieldDecorator('tel', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
+              {getFieldDecorator('tel')(<Input autoComplete="new-password" />)}
             </Form.Item>
             <Form.Item label="비고">
-              {getFieldDecorator('note', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
+              {getFieldDecorator('note')(<Input autoComplete="new-password" />)}
             </Form.Item>
             <Form.Item label="상세">
-              {getFieldDecorator('description', {
-                rules: [requiredRule],
-              })(<Input autoComplete="new-password" />)}
+              {getFieldDecorator('description')(
+                <Input autoComplete="new-password" />
+              )}
             </Form.Item>
           </Form>
         </Modal>
