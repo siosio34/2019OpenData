@@ -7,7 +7,7 @@ const AddEventModal = Form.create({ name: 'add_event' })(
   class extends React.Component {
     render() {
       const { visible, onSubmit, onCancel, form } = this.props;
-      const { getFieldDecorator } = this.props.form;
+      const { getFieldDecorator } = form;
       const formItemLayout = {
         labelCol: {
           xs: { span: 24 },
