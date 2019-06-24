@@ -6,6 +6,7 @@ import { Button, Icon, Modal, message } from 'antd';
 
 import EventTable from './EventTable';
 import AddEventModal from './AddEventModal';
+import ModifyEventModal from './ModifyEventModal';
 
 const apiServer = 'https://code.hanjun.kim:8000';
 
@@ -13,6 +14,23 @@ class EventsPage extends React.Component {
   state = {
     events: [],
     addEventModalVisible: false,
+    modifyEventModalVisible: false,
+    modifyEventModalFields: {
+      name: { value: '' },
+      category: { value: '' },
+      requirements: { value: '' },
+      begin_date: { value: '' },
+      end_date: { value: '' },
+      reference: { value: '' },
+      image: { value: '' },
+      link: { value: '' },
+      location: { value: '' },
+      benefit: { value: '' },
+      target: { value: '' },
+      tel: { value: '' },
+      note: { value: '' },
+      description: { value: '' },
+    },
   };
 
   fetchEvents = () => {
@@ -78,7 +96,35 @@ class EventsPage extends React.Component {
     this.addEventFormRef = formRef;
   };
 
-  handleEdit = record => {};
+  showModifyEventModal = record => {
+    this.setState({ modifyEventModalVisible: true });
+  };
+
+  handleModifyEventModalSubmit = () => {
+    alert('Submit');
+    this.setState({ modifyEventModalVisible: false });
+  };
+
+  handleModifyEventModalCancel = () => {
+    this.setState({ modifyEventModalVisible: false });
+  };
+
+  saveModifyEventFormRef = formRef => {
+    this.modifyEventFormRef = formRef;
+  };
+
+  handleEdit = record => {
+    this.setState({
+      modifyEventModalFields: Object.entries(record).reduce(
+        (obj, [key, value]) => ({
+          ...obj,
+          [key]: { value: value },
+        }),
+        {}
+      ),
+    });
+    this.showModifyEventModal(record);
+  };
 
   handleDelete = record => {
     Modal.confirm({
@@ -112,6 +158,13 @@ class EventsPage extends React.Component {
           wrappedComponentRef={this.saveAddEventFormRef}
           onSubmit={this.handleAddEventModalSubmit}
           onCancel={this.handleAddEventModalCancel}
+        />
+        <ModifyEventModal
+          fields={this.state.modifyEventModalFields}
+          visible={this.state.modifyEventModalVisible}
+          wrappedComponentRef={this.saveModifyEventFormRef}
+          onSubmit={this.handleModifyEventModalSubmit}
+          onCancel={this.handleModifyEventModalCancel}
         />
         <Button
           type="primary"
