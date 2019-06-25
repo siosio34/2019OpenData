@@ -100,6 +100,15 @@ class EventsPage extends React.Component {
     this.setState({ modifyEventModalVisible: true });
   };
 
+  handleModifyEventModalFieldChange = changedFields => {
+    this.setState({
+      modifyEventModalFields: {
+        ...this.state.modifyEventModalFields,
+        ...changedFields,
+      },
+    });
+  };
+
   handleModifyEventModalSubmit = () => {
     alert('Submit');
     this.setState({ modifyEventModalVisible: false });
@@ -163,6 +172,7 @@ class EventsPage extends React.Component {
           fields={this.state.modifyEventModalFields}
           visible={this.state.modifyEventModalVisible}
           wrappedComponentRef={this.saveModifyEventFormRef}
+          onChange={this.handleModifyEventModalFieldChange}
           onSubmit={this.handleModifyEventModalSubmit}
           onCancel={this.handleModifyEventModalCancel}
         />
