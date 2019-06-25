@@ -10,6 +10,7 @@ const ModifyEventModal = Form.create({
   },
   mapPropsToFields(props) {
     const fields = [
+      'id',
       'name',
       'category',
       'requirements',
@@ -66,6 +67,9 @@ const ModifyEventModal = Form.create({
           onCancel={onCancel}
         >
           <Form {...formItemLayout}>
+            <Form.Item label="ID">
+              {getFieldDecorator('id')(<Input readOnly />)}
+            </Form.Item>
             <Form.Item label="이름">
               {getFieldDecorator('name', {
                 rules: [requiredRule],

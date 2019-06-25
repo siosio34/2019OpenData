@@ -16,6 +16,7 @@ class EventsPage extends React.Component {
     addEventModalVisible: false,
     modifyEventModalVisible: false,
     modifyEventModalFields: {
+      id: { value: '' },
       name: { value: '' },
       category: { value: '' },
       requirements: { value: '' },
@@ -110,8 +111,27 @@ class EventsPage extends React.Component {
   };
 
   handleModifyEventModalSubmit = () => {
-    alert('Submit');
-    this.setState({ modifyEventModalVisible: false });
+    const { form } = this.modifyEventFormRef.props;
+    form.validateFieldsAndScroll((err, values) => {
+      if (err) {
+        return;
+      }
+
+      const data = Object.entries(values).reduce(
+        (obj, [key, value]) => ({ ...obj, [key]: value || '' }),
+        {}
+      );
+
+      axios
+        .patch(`${apiServer}/events/${values.id}`, data)
+        .then(resp => resp.data)
+        .then(data => {
+          message.success(`$'{data.name}' 혜택을 수정했습니다.`);
+          this.setState({ modifyEventModalVisible: false });
+          this.fetchEvents();
+        })
+        .catch(this.handleError);
+    });
   };
 
   handleModifyEventModalCancel = () => {
