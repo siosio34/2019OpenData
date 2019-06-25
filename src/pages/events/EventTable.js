@@ -1,7 +1,7 @@
 // @format
 
 import React from 'react';
-import { Divider, Table } from 'antd';
+import { Descriptions, Divider, Table } from 'antd';
 
 const EventTable = props => {
   const { onEdit, onDelete } = props;
@@ -19,6 +19,10 @@ const EventTable = props => {
       dataIndex: 'name',
     },
     {
+      title: '혜택',
+      dataIndex: 'benefit',
+    },
+    {
       title: '위치',
       dataIndex: 'location',
     },
@@ -34,7 +38,18 @@ const EventTable = props => {
     },
   ];
   const expandedRowRender = record => (
-    <p>{record.description || 'No description'}</p>
+    <Descriptions>
+      <Descriptions.Item label="출처">{record.reference}</Descriptions.Item>
+      <Descriptions.Item label="대상">{record.target}</Descriptions.Item>
+      <Descriptions.Item label="조건">{record.requirements}</Descriptions.Item>
+      <Descriptions.Item label="시작일">{record.begin_date}</Descriptions.Item>
+      <Descriptions.Item label="종료일">{record.end_date}</Descriptions.Item>
+      <Descriptions.Item label="링크">{record.link}</Descriptions.Item>
+      <Descriptions.Item label="이미지">{record.image}</Descriptions.Item>
+      <Descriptions.Item label="전화번호">{record.tel}</Descriptions.Item>
+      <Descriptions.Item label="비고">{record.note}</Descriptions.Item>
+      <Descriptions.Item label="상세">{record.description}</Descriptions.Item>
+    </Descriptions>
   );
 
   return (
