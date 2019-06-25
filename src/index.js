@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Layout, Menu } from "antd";
 import AcceptPage from "./pages/accept";
+import EventsPage from './pages/events';
 import "antd/dist/antd.css";
 
 import "./styles.css";
@@ -11,7 +12,7 @@ const rootElement = document.getElementById("root");
 const { Header, Content, Sider } = Layout;
 
 ReactDOM.render(
-  <Layout>
+  <Layout style={{ minHeight: '100vh' }}>
     <Header className="header">
       <div className="logo" style={{ color: "#ffffff" }}>
         장병혜택백서(관리자)
@@ -40,7 +41,7 @@ ReactDOM.render(
             minHeight: 280
           }}
         >
-          <AcceptPage />
+          <EventsPage />
         </Content>
       </Layout>
     </Layout>
