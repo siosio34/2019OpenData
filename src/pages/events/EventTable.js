@@ -44,8 +44,24 @@ const EventTable = props => {
       <Descriptions.Item label="조건">{record.requirements}</Descriptions.Item>
       <Descriptions.Item label="시작일">{record.begin_date}</Descriptions.Item>
       <Descriptions.Item label="종료일">{record.end_date}</Descriptions.Item>
-      <Descriptions.Item label="링크">{record.link}</Descriptions.Item>
-      <Descriptions.Item label="이미지">{record.image}</Descriptions.Item>
+      <Descriptions.Item label="링크">
+        {record.link ? (
+          <a target="_blank" href={record.link}>
+            {record.link}
+          </a>
+        ) : (
+          ''
+        )}
+      </Descriptions.Item>
+      <Descriptions.Item label="이미지">
+        {record.image ? (
+          <a target="_blank" href={record.image}>
+            {record.image}
+          </a>
+        ) : (
+          ''
+        )}
+      </Descriptions.Item>
       <Descriptions.Item label="전화번호">{record.tel}</Descriptions.Item>
       <Descriptions.Item label="비고">{record.note}</Descriptions.Item>
       <Descriptions.Item label="상세">{record.description}</Descriptions.Item>
