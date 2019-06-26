@@ -14,8 +14,8 @@ const ModifyEventModal = Form.create({
       'name',
       'category',
       'requirements',
-      'begin_date',
-      'end_date',
+      'beginDate',
+      'endDate',
       'reference',
       'image',
       'link',
@@ -96,12 +96,12 @@ const ModifyEventModal = Form.create({
               )}
             </Form.Item>
             <Form.Item label="시작일">
-              {getFieldDecorator('begin_date')(
+              {getFieldDecorator('beginDate')(
                 <Input autoComplete="new-password" />
               )}
             </Form.Item>
             <Form.Item label="종료일">
-              {getFieldDecorator('end_date')(
+              {getFieldDecorator('endDate')(
                 <Input autoComplete="new-password" />
               )}
             </Form.Item>

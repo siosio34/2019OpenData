@@ -42,8 +42,8 @@ const EventTable = props => {
       <Descriptions.Item label="출처">{record.reference}</Descriptions.Item>
       <Descriptions.Item label="대상">{record.target}</Descriptions.Item>
       <Descriptions.Item label="조건">{record.requirements}</Descriptions.Item>
-      <Descriptions.Item label="시작일">{record.begin_date}</Descriptions.Item>
-      <Descriptions.Item label="종료일">{record.end_date}</Descriptions.Item>
+      <Descriptions.Item label="시작일">{record.beginDate}</Descriptions.Item>
+      <Descriptions.Item label="종료일">{record.endDate}</Descriptions.Item>
       <Descriptions.Item label="링크">
         {record.link ? (
           <a target="_blank" href={record.link}>

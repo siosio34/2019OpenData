@@ -20,8 +20,8 @@ class EventsPage extends React.Component {
       name: { value: '' },
       category: { value: '' },
       requirements: { value: '' },
-      begin_date: { value: '' },
-      end_date: { value: '' },
+      beginDate: { value: '' },
+      endDate: { value: '' },
       reference: { value: '' },
       image: { value: '' },
       link: { value: '' },
@@ -126,7 +126,7 @@ class EventsPage extends React.Component {
         .patch(`${apiServer}/events/${values.id}`, data)
         .then(resp => resp.data)
         .then(data => {
-          message.success(`$'{data.name}' 혜택을 수정했습니다.`);
+          message.success(`'${data.name}' 혜택을 수정했습니다.`);
           this.setState({ modifyEventModalVisible: false });
           this.fetchEvents();
         })
