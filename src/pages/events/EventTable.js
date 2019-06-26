@@ -38,7 +38,7 @@ const EventTable = props => {
     },
   ];
   const expandedRowRender = record => (
-    <Descriptions>
+    <Descriptions bordered>
       <Descriptions.Item label="출처">{record.reference}</Descriptions.Item>
       <Descriptions.Item label="대상">{record.target}</Descriptions.Item>
       <Descriptions.Item label="조건">{record.requirements}</Descriptions.Item>
