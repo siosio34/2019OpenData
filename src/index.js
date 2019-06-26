@@ -1,50 +1,89 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Layout, Menu } from "antd";
-import AcceptPage from "./pages/accept";
+// @format
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Icon, Layout, Menu } from 'antd';
+
 import EventsPage from './pages/events';
-import "antd/dist/antd.css";
+import FixEventPage from './pages/fixEvent';
+import AddEventPage from './pages/addEvent';
 
-import "./styles.css";
+import 'antd/dist/antd.css';
+import './styles.css';
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById('root');
 
 const { Header, Content, Sider } = Layout;
 
 ReactDOM.render(
   <Layout style={{ minHeight: '100vh' }}>
-    <Header className="header">
-      <div className="logo" style={{ color: "#ffffff" }}>
-        장병혜택백서(관리자)
-      </div>
-    </Header>
+    <Router>
+      <Header className="header">
+        <div className="logo" style={{ color: '#ffffff' }}>
+          장병혜택백서(관리자)
+        </div>
+      </Header>
 
-    <Layout>
-      <Sider width={200} style={{ background: "#fff" }}>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
-          style={{ height: "100%", borderRight: 0 }}
+      <Layout>
+        <Sider
+          breakpoint="lg"
+          collapsedWidth="0"
+          width={200}
+          defaultOpenKeys={['1']}
+          style={{ background: '#fff' }}
         >
-          <Menu.Item key="1">혜택 사항</Menu.Item>
-          <Menu.Item key="2">수정요청사항</Menu.Item>
-          <Menu.Item key="3">추가혜택사항</Menu.Item>
-        </Menu>
-      </Sider>
-      <Layout style={{ padding: "24px 24px" }}>
-        <Content
-          style={{
-            background: "#fff",
-            padding: 24,
-            margin: 0,
-            minHeight: 280
-          }}
-        >
-          <EventsPage />
-        </Content>
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={['all']}
+            defaultOpenKeys={['events']}
+          >
+            <Menu.SubMenu
+              key="events"
+              title={
+                <span>
+                  <Icon type="gift" />
+                  혜택
+                </span>
+              }
+            >
+              <Menu.Item key="all">
+                <Link to="/">
+                  <Icon type="unordered-list" />
+                  전체
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="fix">
+                <Link to="/fixevent">
+                  <Icon type="edit" />
+                  수정 요청
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="add">
+                <Link to="/addevent">
+                  <Icon type="plus" />
+                  등록 요청
+                </Link>
+              </Menu.Item>
+            </Menu.SubMenu>
+          </Menu>
+        </Sider>
+        <Layout style={{ padding: '24px 24px' }}>
+          <Content
+            style={{
+              background: '#fff',
+              padding: 24,
+              margin: 0,
+            }}
+          >
+            <Route exact path="/" component={EventsPage} />
+            <Route path="/fixevent" component={FixEventPage} />
+            <Route path="/addevent" component={AddEventPage} />
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </Router>
   </Layout>,
   rootElement
 );
