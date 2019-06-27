@@ -7,8 +7,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Icon, Layout, Menu } from 'antd';
 
 import EventsPage from './pages/events';
-import FixEventPage from './pages/fixEvent';
-import AddEventPage from './pages/addEvent';
+import UpdateRequestsPage from './pages/updateRequests';
+import AddRequestsPage from './pages/addEvent';
 
 import 'antd/dist/antd.css';
 import './styles.css';
@@ -54,13 +54,13 @@ ReactDOM.render(
                 </Link>
               </Menu.Item>
               <Menu.Item key="fix">
-                <Link to="/fixevent">
+                <Link to="/update-requests">
                   <Icon type="edit" />
                   수정 요청
                 </Link>
               </Menu.Item>
               <Menu.Item key="add">
-                <Link to="/addevent">
+                <Link to="/add-requests">
                   <Icon type="plus" />
                   등록 요청
                 </Link>
@@ -77,8 +77,8 @@ ReactDOM.render(
             }}
           >
             <Route exact path="/" component={EventsPage} />
-            <Route path="/fixevent" component={FixEventPage} />
-            <Route path="/addevent" component={AddEventPage} />
+            <Route path="/update-requests" component={UpdateRequestsPage} />
+            <Route path="/add-requests" component={AddRequestsPage} />
           </Content>
         </Layout>
       </Layout>
