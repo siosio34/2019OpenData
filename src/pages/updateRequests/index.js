@@ -1,97 +1,89 @@
 // @format
 
 import React from 'react';
-import { Popconfirm, Button, Card, Divider, Table, Descriptions } from 'antd';
 import axios from 'axios';
+import {
+  Card,
+  Descriptions,
+  Divider,
+	Icon,
+  Switch,
+  Table,
+  message,
+} from 'antd';
 
-class FixEventPage extends React.Component {
+const apiServer = 'https://code.hanjun.kim:8000';
+
+class UpdateRequestsPage extends React.Component {
   state = {
-    fixItems: [],
-  };
-
-  handleAcceptButton = id => e => {
-    axios
-      .patch(
-        `https://code.hanjun.kim:8000/updateRequests/${id}?_expand=event`,
-        {
-          accepted: true,
-        }
-      )
-      .then(() => {
-        axios
-          .get('https://code.hanjun.kim:8000/updateRequests?accepted=false')
-          .then(response => response.data)
-          .then(data => {
-            this.setState({ fixItems: data });
-          })
-          .catch(response => {
-            console.log(response);
-          });
-      });
+		requests: [],
   };
 
   columns = [
     {
-      title: '순번',
+      title: 'ID',
       dataIndex: 'id',
     },
     {
-      title: '혜택명',
+      title: '이름',
       dataIndex: 'event.name',
     },
     {
-      title: '승인',
+      title: '처리 완료',
       render: record => (
-        <Popconfirm
-          title="정말로 승인하시겠습니까?"
-          onConfirm={this.handleAcceptButton(record.id)}
-          okText="확인"
-          cancelText="취소"
-        >
-          <Button type="primary">승인하기</Button>
-        </Popconfirm>
+        <Switch
+					checkedChildren={<Icon type="check" />}
+					unCheckedChildren={<Icon type="close" />}
+          onChange={this.handleAcceptedChange(record)}
+          checked={record.accepted}
+        />
       ),
     },
   ];
 
-  // {
-  //   "id": 1,
-  //   "name": "Name",
-  //   "category": "Category",
-  //   "requirements": "Requirements",
-  //   "begin_date": "Begin Date",
-  //   "end_date": "End Date",
-  //   "reference": "Reference",
-  //   "image": "Image",
-  //   "link": "Link",
-  //   "location": "Location",
-  //   "benefit": "Benefit",
-  //   "target": "Target",
-  //   "tel": "Tel",
-  //   "note": "Note",
-  //   "description": "Description",
-  //   "accepted": false
-  // }
+  fetchRequests = () => {
+    axios
+      .get(`${apiServer}/updateRequests?_expand=event&_sort=id`)
+      .then(resp =>
+        this.setState({
+          requests: resp.data.map(item => Object.assign(item, { key: item.id })),
+        })
+      )
+      .catch(this.handleError);
+  };
 
-  // <Table dataSource={this.state.eventItems} coulmns={this.columns} />;
+  handleError = err => {
+    if (err.response) {
+      message.error(`에러: ${err.response.status}`);
+    } else if (err.request) {
+      message.error(`에러: ${err.request}`);
+    } else {
+      message.error(`에러: ${err.message}`);
+    }
+  };
 
-  async componentDidMount() {
-    const items = await axios.get(
-      'https://code.hanjun.kim:8000/updateRequests?accepted=false&_expand=event'
-    );
-    const { data } = items;
+  handleAcceptedChange = record => accepted => {
+    axios
+      .patch(`${apiServer}/updateRequests/${record.id}`, { accepted })
+      .then(resp => {
+        message.success(
+          `'${record.name}' 혜택의 수정 요청을 처리 완료했습니다.`
+        );
+				this.fetchRequests();
+      })
+      .catch(this.handleError);
+  };
 
-    this.setState({
-      fixItems: data.map(item => Object.assign(item, { key: item.id })),
-    });
+  componentDidMount() {
+		this.fetchRequests();
   }
 
   render() {
-    const { fixItems } = this.state;
+    const { requests } = this.state;
     return (
       <Table
         expandedRowRender={record => (
-          <>
+          <React.Fragment>
             <Descriptions bordered>
               <Descriptions.Item label="카테고리">
                 {record.event.category}
@@ -146,13 +138,13 @@ class FixEventPage extends React.Component {
             <Card>
               <p>{record.content}</p>
             </Card>
-          </>
+          </React.Fragment>
         )}
-        dataSource={fixItems}
+        dataSource={requests}
         columns={this.columns}
       />
     );
   }
 }
 
-export default FixEventPage;
+export default UpdateRequestsPage;
