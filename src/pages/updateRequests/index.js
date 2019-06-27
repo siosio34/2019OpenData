@@ -6,7 +6,7 @@ import {
   Card,
   Descriptions,
   Divider,
-	Icon,
+  Icon,
   Switch,
   Table,
   message,
@@ -16,7 +16,7 @@ const apiServer = 'https://code.hanjun.kim:8000';
 
 class UpdateRequestsPage extends React.Component {
   state = {
-		requests: [],
+    requests: [],
   };
 
   columns = [
@@ -32,8 +32,8 @@ class UpdateRequestsPage extends React.Component {
       title: '처리 완료',
       render: record => (
         <Switch
-					checkedChildren={<Icon type="check" />}
-					unCheckedChildren={<Icon type="close" />}
+          checkedChildren={<Icon type="check" />}
+          unCheckedChildren={<Icon type="close" />}
           onChange={this.handleAcceptedChange(record)}
           checked={record.accepted}
         />
@@ -46,7 +46,9 @@ class UpdateRequestsPage extends React.Component {
       .get(`${apiServer}/updateRequests?_expand=event&_sort=id`)
       .then(resp =>
         this.setState({
-          requests: resp.data.map(item => Object.assign(item, { key: item.id })),
+          requests: resp.data.map(item =>
+            Object.assign(item, { key: item.id })
+          ),
         })
       )
       .catch(this.handleError);
@@ -67,15 +69,15 @@ class UpdateRequestsPage extends React.Component {
       .patch(`${apiServer}/updateRequests/${record.id}`, { accepted })
       .then(resp => {
         message.success(
-          `'${record.name}' 혜택의 수정 요청을 처리 완료했습니다.`
+          `'${record.event.name}' 혜택의 수정 요청을 처리 완료했습니다.`
         );
-				this.fetchRequests();
+        this.fetchRequests();
       })
       .catch(this.handleError);
   };
 
   componentDidMount() {
-		this.fetchRequests();
+    this.fetchRequests();
   }
 
   render() {
