@@ -8,7 +8,7 @@ import { Icon, Layout, Menu } from 'antd';
 
 import EventsPage from './pages/events';
 import UpdateRequestsPage from './pages/updateRequests';
-import AddRequestsPage from './pages/addEvent';
+import AddRequestsPage from './pages/addRequests';
 
 import 'antd/dist/antd.css';
 import './styles.css';
