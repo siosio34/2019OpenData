@@ -64,7 +64,9 @@ const EventTable = props => {
       </Descriptions.Item>
       <Descriptions.Item label="전화번호">{record.tel}</Descriptions.Item>
       <Descriptions.Item label="비고">{record.note}</Descriptions.Item>
-      <Descriptions.Item label="상세">{record.description}</Descriptions.Item>
+      <Descriptions.Item label="상세">
+        <pre>{record.description}</pre>
+      </Descriptions.Item>
     </Descriptions>
   );
 

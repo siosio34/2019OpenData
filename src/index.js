@@ -31,7 +31,6 @@ ReactDOM.render(
           breakpoint="lg"
           collapsedWidth="0"
           width={200}
-          defaultOpenKeys={['1']}
           style={{ background: '#fff' }}
         >
           <Menu

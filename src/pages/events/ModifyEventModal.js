@@ -26,16 +26,16 @@ const ModifyEventModal = Form.create({
       'note',
       'description',
     ];
-    return fields.reduce(
-      (obj, name) => ({
+    return fields.reduce((obj, name) => {
+      console.log(name);
+      return {
         ...obj,
         [name]: Form.createFormField({
           ...props.fields[name],
           value: props.fields[name].value,
         }),
-      }),
-      {}
-    );
+      };
+    }, {});
   },
 })(
   class extends React.Component {
