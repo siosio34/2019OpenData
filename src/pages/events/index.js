@@ -36,7 +36,7 @@ class EventsPage extends React.Component {
 
   fetchEvents = () => {
     axios
-      .get(`${apiServer}/events?_sort=id`)
+      .get(`${apiServer}/events?_sort=id&_order=desc`)
       .then(resp =>
         this.setState({
           events: resp.data.map(item => Object.assign(item, { key: item.id })),
