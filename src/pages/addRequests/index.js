@@ -78,7 +78,7 @@ class AddRequestsPage extends React.Component {
 
   fetchRequests = () => {
     axios
-      .get(`${apiServer}/addRequests?_sort=id`)
+      .get(`${apiServer}/addRequests?accepted=false&_sort=id`)
       .then(resp =>
         this.setState({
           requests: resp.data.map(item =>
@@ -100,8 +100,18 @@ class AddRequestsPage extends React.Component {
   };
 
   handleAccept = record => () => {
-    console.log(record);
-    // TODO: work here
+    axios
+      .patch(`${apiServer}/addRequests/${record.id}`, { accepted: true })
+      .then(() => {
+        const newRecord = Object.assign({}, record);
+        delete newRecord.id;
+        axios.post(`${apiServer}/events`, newRecord);
+      })
+      .then(resp => {
+        message.success(`'${record.name}' 혜택 추가를 승인했습니다.`);
+        this.fetchRequests();
+      })
+      .catch(this.handleError);
   };
 
   componentDidMount() {
