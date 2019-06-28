@@ -2,7 +2,15 @@
 
 import React from 'react';
 import axios from 'axios';
-import { Input, Popconfirm, Button, Table, Descriptions, message } from 'antd';
+import {
+  Input,
+  Button,
+  Divider,
+  Table,
+  Descriptions,
+  Modal,
+  message,
+} from 'antd';
 
 const apiServer = 'https://code.hanjun.kim:8000';
 
@@ -36,9 +44,9 @@ class AddRequestsPage extends React.Component {
       title: '작업',
       render: (_, record) => (
         <span>
-          <Button type="primary" onClick={this.handleAccept(record)}>
-            승인하기
-          </Button>
+          <a onClick={this.handleAccept(record)}>승인</a>
+          <Divider type="vertical" />
+          <a onClick={this.handleDelete(record)}>삭제</a>
         </span>
       ),
     },
@@ -112,6 +120,24 @@ class AddRequestsPage extends React.Component {
         this.fetchRequests();
       })
       .catch(this.handleError);
+  };
+
+  handleDelete = record => () => {
+    Modal.confirm({
+      title: `'${record.name}' 혜택 추가 요청을 삭제하시겠습니까?`,
+      okText: '예',
+      okType: 'danger',
+      cancelText: '취소',
+      onOk: () => {
+        return axios
+          .delete(`${apiServer}/addRequests/${record.id}`)
+          .then(resp => {
+            message.success(`'${record.name}' 혜택 추가 요청을 삭제했습니다.`);
+            this.fetchRequests();
+          })
+          .catch(this.handleError);
+      },
+    });
   };
 
   componentDidMount() {
